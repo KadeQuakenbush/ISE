@@ -80,7 +80,7 @@ pd_tplusb.to_csv(f"{base_path}/Title+Body.csv", index=False, columns=["id", "Num
 # ========== Key Configurations ==========
 
 datafile = f"{base_path}/Title+Body.csv" # Data file to read
-REPEAT = 10 # Number of repeated experiments
+REPEAT = 20 # Number of repeated experiments, more means more accuracte metrics (not better model)
 out_csv_name = f"{base_path}/results/{project}_NB.csv" # Output CSV file
 
 # ========== Read and clean data ==========
@@ -96,7 +96,7 @@ original_data = data.copy() # Keep a copy for referencing original data if neede
 
 data[text_col] = data[text_col].apply(remove_html)
 data[text_col] = data[text_col].apply(remove_emoji)
-data[text_col] = data[text_col].apply(remove_stopwords)
+data[text_col] = data[text_col].apply(remove_stopwords) # !!
 data[text_col] = data[text_col].apply(stem)
 debug("DataFrame shape after text cleaning", data.shape)
 debug("DataFrame head after text cleaning", data.head())
@@ -104,9 +104,13 @@ debug("DataFrame head after text cleaning", data.head())
 # ========== Hyperparameter grid ==========
 
 # Using logspace for var_smoothing: [1e-12, 1e-11, ..., 1]
-params = {
-    'C': np.logspace(-4, 4, 20)  # Hyperparameter grid for Logistic Regression
+
+params = { # !! For Naive Bayes
+    'var_smoothing': np.logspace(-12, 0, 13)
 }
+# params = { # !! For Logistic Regression
+#     'C': np.logspace(-4, 4, 20)  # Hyperparameter grid for Logistic Regression
+# }
 
 # Lists to store metrics across repeated runs
 
@@ -122,7 +126,7 @@ for repetition in range(REPEAT):
 
     indices = np.arange(data.shape[0])
     train_index, test_index = train_test_split(
-        indices, test_size=0.3, random_state=repetition
+        indices, test_size=0.3, random_state=repetition # !! Test size affects training effectiveness
     )
 
     train_text = data[text_col].iloc[train_index]
@@ -137,15 +141,15 @@ for repetition in range(REPEAT):
     # --- 4.2 TF vectorization ---
 
     tfidf = TfidfVectorizer(
-        ngram_range=(1, 5),  # Adjust n-gram range, wider range tends to be more accurate
-        max_features=3000    # Adjust max features
+        ngram_range=(1, 3),  # !! Adjust n-gram range, wider range tends to be more accurate
+        max_features=1000    # !! Adjust max features
     )
     tf = CountVectorizer(
-        ngram_range=(1, 5),  # Adjust n-gram range, wider range tends to be more accurate
-        max_features=1000    # Adjust max features
+        ngram_range=(1, 3),  # !! Adjust n-gram range, wider range tends to be more accurate
+        max_features=1000    # !! Adjust max features
     )
-    X_train = tf.fit_transform(train_text)
-    X_test = tf.transform(test_text)
+    X_train = tfidf.fit_transform(train_text)
+    X_test = tfidf.transform(test_text)
     
     # Convert sparse matrices to dense format
 
@@ -156,12 +160,12 @@ for repetition in range(REPEAT):
    
     # --- 4.3 Logistic Regression model & GridSearch ---
 
-    # clf = GaussianNB()
-    clf = LogisticRegression(max_iter=1000)
+    clf = GaussianNB() # !!
+    # clf = LogisticRegression(max_iter=1000) # !!
     grid = GridSearchCV(
         clf,
         params,
-        cv=5,              # 5-fold CV (can be changed)
+        cv=5,              # !! More folds is typically more effective, but more computationally expensive
         scoring='roc_auc'  # Using roc_auc as the metric for selection
     )
     grid.fit(X_train, y_train)

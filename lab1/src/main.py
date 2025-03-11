@@ -9,14 +9,15 @@ import os
 import subprocess
 
 # Text and feature engineering
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
 # Evaluation and tuning
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_score, roc_curve, auc)
 
 # Classifier
-from sklearn.linear_model import LogisticRegression, GaussianNB
+from sklearn.naive_bayes import GaussianNB
+from sklearn.linear_model import LogisticRegression
 
 # Import preprocessing functions from utils
 from utils import remove_html, remove_emoji, remove_stopwords, stem
@@ -31,9 +32,16 @@ def debug(name, val):
         print("--> DEBUG: ", name, val)
 
 
+######### CONFIGURATION #####################
+"""
+Feature extraction options: TF-IDF (def), TF
+Classifier options: Naive Bayes (def), Logistic Regression
+"""
+
+
 ########## 2. Download & read data ##########
 
-base_path = "C:/Users/jedim/OneDrive/Documents/Work/Uni/Canvas Work/Intelligent_Software_Engineering/ISE/lab1"
+base_path = "C:/Users/jedim/OneDrive/Documents/Work/Uni/Canvas Work/Intelligent_Software_Engineering/ISE_priv/ISE/lab1"
 
 # Choose the project (options: 'pytorch', 'tensorflow', 'keras', 'incubator-mxnet', 'caffe')
 project = "tensorflow"
@@ -64,14 +72,14 @@ pd_tplusb = pd_all.rename(columns={
 debug("DataFrame shape after renaming columns", pd_tplusb.shape)
 debug("DataFrame head after renaming columns", pd_tplusb.head())
 
-pd_tplusb.to_csv('Title+Body.csv', index=False, columns=["id", "Number", "sentiment", "text"])
+pd_tplusb.to_csv(f"{base_path}/Title+Body.csv", index=False, columns=["id", "Number", "sentiment", "text"])
 
 
 ########## 4. Configure parameters & Start training ##########
 
 # ========== Key Configurations ==========
 
-datafile = 'Title+Body.csv' # Data file to read
+datafile = f"{base_path}/Title+Body.csv" # Data file to read
 REPEAT = 10 # Number of repeated experiments
 out_csv_name = f"{base_path}/results/{project}_NB.csv" # Output CSV file
 
@@ -128,9 +136,13 @@ for repetition in range(REPEAT):
 
     # --- 4.2 TF vectorization ---
 
-    tf = CountVectorizer(
+    tfidf = TfidfVectorizer(
         ngram_range=(1, 5),  # Adjust n-gram range, wider range tends to be more accurate
         max_features=3000    # Adjust max features
+    )
+    tf = CountVectorizer(
+        ngram_range=(1, 5),  # Adjust n-gram range, wider range tends to be more accurate
+        max_features=1000    # Adjust max features
     )
     X_train = tf.fit_transform(train_text)
     X_test = tf.transform(test_text)
@@ -144,6 +156,7 @@ for repetition in range(REPEAT):
    
     # --- 4.3 Logistic Regression model & GridSearch ---
 
+    # clf = GaussianNB()
     clf = LogisticRegression(max_iter=1000)
     grid = GridSearchCV(
         clf,

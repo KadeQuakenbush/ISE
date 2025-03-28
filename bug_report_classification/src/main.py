@@ -1,4 +1,4 @@
-########## 1. Import required libraries ##########
+########## 1. Import required libraries and debugging ##########
 
 import requests
 import json
@@ -6,248 +6,282 @@ import pandas as pd
 import numpy as np
 import re
 import math
+import time
+import warnings
 
 import os
 import subprocess
 
 # Text and feature engineering
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+from sklearn.preprocessing import normalize, StandardScaler, MinMaxScaler
 
 # Evaluation and tuning
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_score, roc_curve, auc)
+from sklearn.model_selection import train_test_split, GridSearchCV, StratifiedKFold
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, balanced_accuracy_score, precision_recall_curve, auc, silhouette_score
+
+# Data resampling
+from imblearn.over_sampling import SMOTE
+from imblearn.under_sampling import RandomUnderSampler
+from imblearn.combine import SMOTEENN
+from collections import Counter
 
 # Classifier
-from sklearn.naive_bayes import GaussianNB
+from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
 
 # Import preprocessing functions from utils
-from utils import debug, pre_process
+from utils import preprocess, vectorize_text, classify
 
 
-########## DEBUGGING ########################
+# ========== Debugging ==========
 
 debug_mode = True
 
-def debug(str):
+def debug(message):
     if debug_mode:
-        print("[DEBUG]", str)
+        print("[DEBUG]", message)
 
-######### CONFIGURATION #####################
-"""
-Feature extraction options: TF-IDF (def), TF
-Classifier options: Naive Bayes (def), Logistic Regression
-"""
+warnings.filterwarnings("ignore") # Prevents warning when number of cores cannot be found
 
 
-########## 2. Download & read data ##########
-"""
-url = "https://bugzilla.mozilla.org/rest/bug?product=Firefox&component=General"
-params = {
-    "product": "Firefox", # Specify product (e.g., Firefox, Thunderbird)
-    "component": "General", # Component within the product
-    "include_fields": "id,summary,severity,priority,creation_time,description" # Fields to retrieve
+
+########### 2. Method configuration ##########
+'''
+Feature extraction options: TF-IDF (baseline), TF
+Classifier options: Naive Bayes (baseline), Logistic Regression
+'''
+dataset_size = 100000
+
+vec_options = {
+    "tf": "TF",
+    "tfidf": "TF-IDF",
+    "tfigm": "TF-IGM"
 }
-response = requests.get(url, params=params)
-data = response.json()
-bugs = pd.DataFrame(data["bugs"])
-bugs.to_csv("mozilla_bugs.csv", index=False)
-debug(f"Fetched {len(bugs)} bug reports and saved to mozilla_bugs.csv")
-"""
-#############################
+clf_options = {
+    "nb": "Multinomial Naive Bayes",
+    "lr": "Logistic Regression",
+    "rf": "Random Forest",
+    "svm": "Support Vector Machine",
+    "kmeans": "k-Means Clustering"
+}
+unsupervised_clfs = ["kmeans"]
+
+vec_name = "tfidf" # Options: tf, tfidf (baseline), tfigm
+clf_name = "nb" # Options: nb (baseline), lr, rf, svm, kmeans (not measured)
+testing_clfs = ["nb", "lr"]
+
+
+
+########## 3. Download and read the dataset ##########
 
 base_path = "C:/Users/jedim/OneDrive/Documents/Work/Uni/Canvas Work/Intelligent_Software_Engineering/ISE_priv/ISE/bug_report_classification"
 
-# Choose the project (options: 'pytorch', 'tensorflow', 'keras', 'incubator-mxnet', 'caffe')
-project = "tensorflow"
-path = f"{base_path}/datasets/{project}.csv"
-debug(f"Path {path}")
+url = "https://bugzilla.mozilla.org/rest/bug" # Bugzilla API
+params = {
+    "product": "Firefox", # Specify product (e.g., Firefox, Thunderbird)
+    "component": "General", # Component within the product
+    "include_fields": "id,severity,summary,description,comments", # Fields to retrieve
+    "is_confirmed": True,
+    "limit": min(dataset_size, 10000),
+    "offset": 0
+}
+bugs = []
 
-pd_all = pd.read_csv(path)
-pd_all = pd_all.sample(frac=1, random_state=999)  # Shuffle
-debug(f"DataFrame shape after reading CSV {pd_all.shape}")
-debug(f"DataFrame head after reading CSV {pd_all.head()}")
+while len(bugs) < dataset_size:
+    try:
+        response = requests.get(url, params=params)
+        data = response.json()
 
-# Merge Title and Body into a single column; if Body is NaN, use Title only
+        if "bugs" in data and data["bugs"]:
+            bugs.extend(data["bugs"])
+            params["limit"] = min(dataset_size - len(bugs), 10000)
+            params["offset"] += 10000
+            debug(f"Len bugs: {len(bugs)}")
+        else:
+            debug("No more bugs found.")
+            break
 
-pd_all['Title+Body'] = pd_all.apply(
-    lambda row: row['Title'] + '. ' + row['Body'] if pd.notna(row['Body']) else row['Title'],
+    except requests.exceptions.RequestException as e:
+        debug(f"Request failed: {e}")
+        break
+
+pd_all = pd.DataFrame(bugs)
+pd_all = pd_all[["id", "severity", "summary", "description", "comments"]] # Sort
+debug(f"DataFrame shape after fetching: {pd_all.shape}")
+debug(f"Distribution: {pd_all["severity"].value_counts()}")
+
+pd_all.to_csv(f"{base_path}/datasets/mozilla_bugs.csv", index=False)
+debug(f"Fetched {len(pd_all)} bug reports and saved to mozilla_bugs.csv")
+
+# pd_all = pd.read_csv(f"{base_path}/datasets/mozilla_bugs.csv")
+pd_all = pd_all.sample(frac=1, random_state=999).head(dataset_size) # Shuffle and take only the first n records
+pd.set_option("display.max_columns", None) # Show all columns
+debug(f"DataFrame shape after reading CSV: {pd_all.shape}")
+debug(f"DataFrame head after reading CSV: \n{pd_all.head()}")
+
+# Merge summary and description into a single column; if description is NaN, use summary only
+
+pd_all["comments"] = pd_all.apply(
+    lambda row: len(row["comments"]) if isinstance(row["comments"], list) else 0,
     axis=1
 )
-debug(f"DataFrame shape after merging Title and Body {pd_all.shape}")
-debug(f"DataFrame head after merging Title and Body {pd_all.head()}")
+debug(f"DataFrame shape after counting comments: {pd_all.shape}")
+debug(f"DataFrame head after counting comments: \n{pd_all.head()}")
 
-# Keep only necessary columns: id, Number, sentiment, text (merged Title+Body)
+pd_all["summary+description"] = pd_all.apply(
+    lambda row: f"{row["summary"]}. {row["description"]}" if pd.notna(row["description"]) else f"{row["summary"]}",
+    axis=1
+)
+debug(f"DataFrame shape after merging summary and description: {pd_all.shape}")
+debug(f"DataFrame head after merging summary and description: \n{pd_all.head()}")
+
+# Rename column
 
 pd_tplusb = pd_all.rename(columns={
-    "Unnamed: 0": "id",
-    "class": "sentiment",
-    "Title+Body": "text"
+    "summary+description": "text",
+    "comments": "comment_count"
 })
-debug(f"DataFrame shape after renaming columns {pd_tplusb.shape}")
-debug(f"DataFrame head after renaming columns  {pd_tplusb.head()}")
+debug(f"DataFrame shape after renaming columns: {pd_tplusb.shape}")
+debug(f"DataFrame head after renaming columns: \n{pd_tplusb.head()}")
 
-pd_tplusb.to_csv(f"{base_path}/Title+Body.csv", index=False, columns=["id", "Number", "sentiment", "text"])
+pd_tplusb.to_csv(f"{base_path}/datasets/reshaped_mozilla_bugs.csv", index=False, columns=["id", "severity", "text", "comment_count"])
 
 
-########## 4. Configure parameters & Start training ##########
 
-# ========== Key Configurations ==========
+########## 4. Configure parameters ##########
 
-datafile = f"{base_path}/Title+Body.csv" # Data file to read
-REPEAT = 20 # Number of repeated experiments, more means more accuracte metrics (not better model)
-out_csv_name = f"{base_path}/results/{project}_NB.csv" # Output CSV file
+# Get samples and set results file
 
-# ========== Read and clean data ==========
+datafile = f"{base_path}/datasets/reshaped_mozilla_bugs.csv" # Data file to read
+out_csv_name = f"{base_path}/results/mozilla_bugs_results.csv" # Output CSV file
 
-data = pd.read_csv(datafile).fillna('')
-text_col = 'text'
-debug(f"DataFrame shape after reading cleaned data {data.shape}")
-debug(f"DataFrame head after reading cleaned data \n{data.head()}")
+# Replace NaN's with empty string
+
+data = pd.read_csv(datafile).fillna("")
+debug(f"DataFrame shape after data cleaning: {data.shape}")
+debug(f"DataFrame head after data cleaning: \n{data.head()}")
 
 original_data = data.copy() # Keep a copy for referencing original data if needed
 
-# Text cleaning
+# Text preprocessing
 
-data[text_col] = data[text_col].apply(pre_process)
-debug(f"DataFrame shape after text cleaning {data.shape}")
-debug(f"DataFrame head after text cleaning \n{data.head()}")
+data["text"] = data["text"].apply(preprocess)
+debug(f"DataFrame shape after text cleaning: {data.shape}")
+debug(f"DataFrame head after text cleaning: \n{data.head()}")
 
-# ========== Hyperparameter grid ==========
+# Numerically label severities and remove any records that have invalid severities
 
-# Using logspace for var_smoothing: [1e-12, 1e-11, ..., 1]
-
-params = { # !! For Naive Bayes
-    'var_smoothing': np.logspace(-12, 0, 13)
+severity_mapping = {
+    "S1": 4, "blocker": 4, "critical": 4,
+    "S2": 3, "major": 3,
+    "S3": 2, "normal": 2,
+    "S4": 1, "minor": 1, "trivial": 1,
+    "N/A": 0, "enhancement": 0,
 }
-# params = { # !! For Logistic Regression
-#     'C': np.logspace(-4, 4, 20)  # Hyperparameter grid for Logistic Regression
-# }
+data["severity"] = data["severity"].map(severity_mapping)
+data = data.dropna(subset=["severity"])
+debug(f"DataFrame shape after severity mapping: {data.shape}")
+debug(f"DataFrame head after severity mapping: \n{data.head()}")
 
-# Lists to store metrics across repeated runs
+# Save preprocessed data to CSV
+data.to_csv(f"{base_path}/datasets/preprocessed_mozilla_bugs.csv", index=False, columns=["id", "severity", "text", "comment_count"])
 
-accuracies  = []
-precisions  = []
-recalls     = []
-f1_scores   = []
-auc_values  = []
 
-for repetition in range(REPEAT):
 
-    # --- 4.1 Split into train/test ---
+########## 5. Train the model and evaluate ##########
 
-    indices = np.arange(data.shape[0])
-    train_index, test_index = train_test_split(
-        indices, test_size=0.3, random_state=repetition # !! Test size affects training effectiveness
+for clf_name in ["nb", "lr"]:
+    n_splits = 3
+    skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
+
+    # Scaling comment count to reduce bias
+    if clf_name in ["nb", "svm", "kmeans"]:
+        data["comment_count"] = MinMaxScaler().fit_transform(data[["comment_count"]])
+    elif clf_name in ["lr"]:
+        data["comment_count"] = StandardScaler().fit_transform(data[["comment_count"]])
+
+    X = data[["text", "comment_count"]]
+    y = data["severity"]
+
+    # Lists to store metrics across folds
+    accuracies = []
+    precisions = []
+    recalls = []
+    f1_scores = []
+    f1_weighted_scores = []
+
+    start_time = time.time()
+
+    # Stratified K-Fold Cross-Validation
+
+    for fold, (train_index, test_index) in enumerate(skf.split(data["text"], data["severity"])):
+        print(f"Fold {fold + 1}/{n_splits} running...")
+
+        # Splitting and vectorizing the data
+        processed_data = vectorize_text(X, y, vec_name, train_index, test_index)
+
+        # Training and testing the classifier
+        y_test, y_pred = classify(processed_data, clf_name, fold)
+        debug(f"Predicted severity distribution: {Counter(y_pred)}")
+
+        if clf_name not in unsupervised_clfs:
+            acc = accuracy_score(y_test, y_pred)
+            accuracies.append(acc)
+
+            prec = precision_score(y_test, y_pred, average="macro", zero_division=0)
+            precisions.append(prec)
+
+            rec = recall_score(y_test, y_pred, average="macro")
+            recalls.append(rec)
+
+            f1 = f1_score(y_test, y_pred, average="macro")
+            f1_scores.append(f1)
+
+            f1_weighted = f1_score(y_test, y_pred, average="weighted")
+            f1_weighted_scores.append(f1_weighted)
+
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    debug(f"Elapsed time: {elapsed_time:.2f} seconds")
+
+    # --- Aggregate results ---
+    final_accuracy = np.mean(accuracies)
+    final_precision = np.mean(precisions)
+    final_recall = np.mean(recalls)
+    final_f1 = np.mean(f1_scores)
+    final_f1_weighted = np.mean(f1_weighted_scores)
+
+    print(f"=== {clf_options[clf_name]} + {vec_options[vec_name]} Results ===")
+    print(f"Number of folds:     {n_splits}")
+    print(f"Average Accuracy:    {final_accuracy:.4f}")
+    print(f"Average Precision:   {final_precision:.4f}")
+    print(f"Average Recall:      {final_recall:.4f}")
+    print(f"Average F1:          {final_f1:.4f}")
+    print(f"Average F1 Weighted: {final_f1_weighted:.4f}")
+
+    # Save final results to CSV (append mode)
+
+    try:
+        existing_data = pd.read_csv(out_csv_name, nrows=1)
+        header_needed = False
+    except:
+        header_needed = True
+
+    df_log = pd.DataFrame(
+        {
+            "method": [clf_options[clf_name] + " + " + vec_options[vec_name]],
+            "folds": [n_splits],
+            "Accuracy": [final_accuracy],
+            "Precision": [final_precision],
+            "Recall": [final_recall],
+            "F1 Score": [final_f1],
+            "F1 Weighted Score": [final_f1_weighted]
+        }
     )
 
-    train_text = data[text_col].iloc[train_index]
-    test_text = data[text_col].iloc[test_index]
-    debug(f"Train/Test split shapes (repeat {repetition}) {(train_text.shape, test_text.shape)}")
+    df_log.to_csv(out_csv_name, mode="a", header=header_needed, index=False)
 
-    y_train = data['sentiment'].iloc[train_index].values
-    y_test  = data['sentiment'].iloc[test_index].values
-    debug(f"y_train shape and type (repeat {repetition}) {(y_train.shape, type(y_train))}")
-    debug(f"y_test shape and type (repeat {repetition}) {(y_test.shape, type(y_test))}")
-
-    # --- 4.2 TF vectorization ---
-
-    tfidf = TfidfVectorizer(
-        ngram_range=(1, 3),  # !! Adjust n-gram range, wider range tends to be more accurate
-        max_features=1000    # !! Adjust max features
-    )
-    tf = CountVectorizer(
-        ngram_range=(1, 3),  # !! Adjust n-gram range, wider range tends to be more accurate
-        max_features=1000    # !! Adjust max features
-    )
-    X_train = tfidf.fit_transform(train_text)
-    X_test = tfidf.transform(test_text)
-    
-    # Convert sparse matrices to dense format
-
-    X_train = X_train.toarray()
-    X_test = X_test.toarray()
-    debug(f"X_train shape and type (repeat {repetition}) {(X_train.shape, type(X_train))}")
-    debug(f"X_test shape and type (repeat {repetition}) {(X_test.shape, type(X_test))}")
-   
-    # --- 4.3 Logistic Regression model & GridSearch ---
-
-    clf = GaussianNB() # !!
-    # clf = LogisticRegression(max_iter=1000) # !!
-    grid = GridSearchCV(
-        clf,
-        params,
-        cv=5,              # !! More folds is typically more effective, but more computationally expensive
-        scoring='roc_auc'  # Using roc_auc as the metric for selection
-    )
-    grid.fit(X_train, y_train)
-    debug(f"Best parameters (repeat {repetition}) {grid.best_params_}")
-
-    # Retrieve the best model
-
-    best_clf = grid.best_estimator_
-    best_clf.fit(X_train, y_train)
-
-    # --- 4.4 Make predictions & evaluate ---
-
-    y_pred = best_clf.predict(X_test)
-
-    acc = accuracy_score(y_test, y_pred)
-    accuracies.append(acc)
-    
-    prec = precision_score(y_test, y_pred, average='macro', zero_division=0)
-    precisions.append(prec)
-
-    rec = recall_score(y_test, y_pred, average='macro')
-    recalls.append(rec)
-
-    f1 = f1_score(y_test, y_pred, average='macro')
-    f1_scores.append(f1)
-
-    # AUC
-    # If labels are 0/1 only, this works directly.
-    # If labels are something else, adjust pos_label accordingly.
-    fpr, tpr, _ = roc_curve(y_test, y_pred, pos_label=1)
-    auc_val = auc(fpr, tpr)
-    auc_values.append(auc_val)
-
-# --- 4.5 Aggregate results ---
-
-final_accuracy  = np.mean(accuracies)
-final_precision = np.mean(precisions)
-final_recall    = np.mean(recalls)
-final_f1        = np.mean(f1_scores)
-final_auc       = np.mean(auc_values)
-
-print("=== Logistic Regression + TF Results ===")
-print(f"Number of repeats:     {REPEAT}")
-print(f"Average Accuracy:      {final_accuracy:.4f}")
-print(f"Average Precision:     {final_precision:.4f}")
-print(f"Average Recall:        {final_recall:.4f}")
-print(f"Average F1 score:      {final_f1:.4f}")
-print(f"Average AUC:           {final_auc:.4f}")
-
-# Save final results to CSV (append mode)
-
-try:
-    # Attempt to check if the file already has a header
-    existing_data = pd.read_csv(out_csv_name, nrows=1)
-    header_needed = False
-except:
-    header_needed = True
-
-df_log = pd.DataFrame(
-    {
-        'repetitions': [REPEAT],
-        'Accuracy': [final_accuracy],
-        'Precision': [final_precision],
-        'Recall': [final_recall],
-        'F1': [final_f1],
-        'AUC': [final_auc],
-        'CV_list(AUC)': [str(auc_values)]
-    }
-)
-
-df_log.to_csv(out_csv_name, mode='a', header=header_needed, index=False)
-
-print(f"\nResults have been saved to: {out_csv_name}")
+    print(f"\nResults have been saved to: {out_csv_name}")

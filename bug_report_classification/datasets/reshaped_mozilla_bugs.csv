@@ -1,0 +1,1217 @@
+id,severity,text,comment_count
+163057,normal,"Phoenix and Mozilla cannot comfortably share a source tree. The Mozilla build being used to file this identifies itself as Phoenix {Build
+ID: 2002081613}, it was built in a trunk source tree following a build of
+Phoenix earlier today
+
+('Mozilla' built after following commands unset MOZ_PHOENIX, comment out
+mk_add_options MOZ_PHOENIX=1 in .mozconfig)
+
+other symptoms: UI artefacts;
+
+i  navbar grippy lacks arrow
+ii Persbar lacks grippy",12
+173904,normal,"Phoenix needs its own Icon. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+
+I can't decide which icon I should click when I have both: mozilla and phoenix
+in my quickbar because they both look the same ;)
+There are some simple workarounds of course. (Can't explain them, because it's
+different for each OS)
+
+Reproducible: Always
+
+Steps to Reproduce:",5
+171816,normal,"Phoenix does't open a new POPUP Window. User-Agent:       Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.2b) Gecko/20020923 Phoenix/0.1
+Build Identifier: Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.2b) Gecko/20020923 Phoenix/0.1
+
+Visit www.bacomer.com (a mexican bank) in the right top there's a text box that
+says ""Banca en Línea Acceso Express"" if you put a number like 24200000  and hit
+IR button on the right It is supposed to open a new button and location-less
+window. But Phoenix does't do anything. Try it on IE and you'll se the problem
+
+Reproducible: Always
+
+Steps to Reproduce:
+1.open www.bancomer.com
+2.put any number like 24200000
+3.hit IR button
+
+Actual Results:  
+Nothing
+
+Expected Results:  
+It should have opened a new window",11
+171977,normal,"When Phoenix is checking for default browser NO is missing from the button. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+
+I just started Phoenix and noticed that the word ""NO"" was missing from one of
+the buttons for the checking default brower window.
+
+There are three buttons that come up: OK ,NO and Cancel.  No is missing.
+
+See picture
+
+Reproducible: Always
+
+Steps to Reproduce:
+Only works when Phoenix recognises that it is not the default browser.
+1.Set IE as your default browser
+2.Open Phoenix.
+
+
+Expected Results:  
+I'm sure just a quick fix.",4
+171293,normal,"Text doesn't wrap. The text in the following page doesn't wrap.  I tried new window & new tab
+opens.  MSIE wraps correctly.
+
+http://www.cnn.com/2002/TECH/space/09/27/rocket.failure/index.html",5
+171677,normal,"Microsoft Web Outlook newsgroup posting will not allow reply to group. When accessing a University of Phoenix class using Web-Outlook, you can make a
+new newsgroup post but you cannot reply to the group in an existing thread.  The
+issue is not the case with Mozilla 1.0.1 .",11
+174105,normal,"tabbrowser: loaded pages appear blank. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021011 Phoenix/0.3
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021011 Phoenix/0.3
+
+
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Open a tab and browse to a site
+2. Open a second tab and browse to a site
+3. In the second tab, load a different site
+4. While the site is still loading in the second tab, close the first tab using
+the context menu (without focusing the first tab)
+
+Actual Results:  
+The first tab is closed, the second tab appears blank (not as in about:blank,
+but in the background color of your OS's widgets).
+
+Expected Results:  
+Loaded and displayed the site...",4
+172179,normal,"Maybe you implement some mouse-gestures. It would be fine if there is the possibility to activate mouse-gestures (like in
+Opera, or Mozilla with Gestures-Plugin [http://optimoz.mozdev.org/gestures/]).
+Its the best way to surf the web.
+
+Greets from Munich",5
+173199,major,"Phoenix doesnt shut down after being closed. After closing Phoenix, half the time, or more, Phoenix stays in the CPU, and
+when i try to reload mozilla, it wont bother loading, unless i open up task
+manager and close it manually from there, this seems to happen on the nightly
+builds of phoenix .2, and the main release of .2",3
+171253,normal,"Browser is ignoring the attibute TITLE in TAG <img.... User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20020923 Phoenix/0.1
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20020923 Phoenix/0.1
+
+Sample:
+<img src=http://www.google.com/logos/4th_birthday.gif width=276 height=110
+border=0 alt=""Celebrating Google's 4th Birthday"">
+
+Reproducible: Always
+
+Steps to Reproduce:
+1.
+2.
+3.",3
+170679,normal,"2nd Copy won't load with same profile. When I open a second copy of phoenix it prompts for a profile and will not allow
+me to use one opened by another instance",3
+173132,normal,"Middle-click empty page area to load copied/cutted URL. One thing that I _love_ about all Mozilla-based browsers (and even Netscape 4.7x
+:) is being able to open links in new tabs/windows by middle-clicking that link.
+
+Likewise, being able to copy a bit of text from somewhere (a URL, namely), and
+being able to middle-click in an empty page area to load it is also convenient.
+This functionality is currently missing in Phoenix, as far as I can see.
+
+Thanks :)",4
+172163,normal,"javascript click() fails to activate links. In the following document, clicking on the first link should display an alert,
+followed by navigation to the second link. The alert appears but the second
+link is not activated. It works fine in both IE and Opera, but fails under
+Mozilla 1.0 too.
+
+<HTML>
+<BODY>
+<SCRIPT>
+function doit()
+{
+  alert(""Doing it"");
+  lk = document.getElementsByName(""thelink"");
+  lk.item(0).click();
+}
+</SCRIPT>
+
+<A href=""javascript:doit()"">Do it</A>
+<BR><BR>
+<A name=""thelink"" href=""test2.html"">The Link</A>
+
+</BODY>
+</HTML>",3
+174311,normal,"Specific Google search freezes browser.. User-Agent:       Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021013 Phoenix/0.3
+Build Identifier: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021013 Phoenix/0.3
+
+Searching for ""hurd"" ""c++"" and ""wrapper"" on Google causes Phoenix to lock up
+before the page is fully loaded.  The Google homepage from which I originated my
+search remains displayed, the scrollbar expands as it always does before a long
+page is loaded.  Then it freezes still displaying the homepage and expanded
+scrollbar.  Closing via the window frame close button does't work either, I have
+to kill the process of manually.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Go to http://www.google.com
+2. Enter the following search terms: hurd c++ wrapper
+3.
+
+Actual Results:  
+Phoenix freezes and must be manually kill'd.
+
+Expected Results:  
+Not frozen. =)",13
+172361,normal,"long password can't work properly. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+
+I use a password with 9 letters on some web site accounts!
+but I can login useing phoenix 0.2!
+I had try many times and sure I didn't make a miss typing!
+
+Reproducible: Sometimes
+
+Steps to Reproduce:
+1.
+2.
+3.",7
+173856,trivial,increase text size keyboard shortcut inaccurate. Increase text size claims Ctrl++ when it is actually Ctrl+=,8
+170068,normal,"the changes to mozbrowser/phoenix too confusing and too much. User-Agent:       Mozilla/5.0 (Windows; U; Win 9x 4.90; en-US; rv:0.1) Gecko/20020920
+Build Identifier: Mozilla/5.0 (Windows; U; Win 9x 4.90; en-US; rv:0.1) Gecko/20020920
+
+The change in name to Phoenix was expected, but for the phoenix profiler not to
+recognise previous mozbrowser profiles is too much. Having lost profiles before,
+I was fortunate enough to back the old one up, but it was still a battle getting
+it recognised. at this time I am not sure what I may have lost. Pity help anyone
+who does not knoe where the profiles are kept. I hope this is fixed soon.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. try to start Phoenix
+2. try to create profile
+3. start again
+
+Actual Results:  
+Phoenix would only create a profile, it could not accept an old one
+
+Expected Results:  
+provision should be added to reuse an old profile",3
+174534,normal,"phoenix linux-ppc milestones. i cannot estimate the amount of effort involved, but if it isn't overly
+difficult, it would be nice to have linux-ppc builds of phoenix milestones
+available.",3
+171729,normal,"Doesn't display 404. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20020929 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20020929 Phoenix/0.2
+
+The above url should go to a custom 404 error page. I've tested with mozilla and
+it does so. Trying this url on phoenix causes the browser to ignore my request
+and behave as if I didn't even type anything. If does this even if I have a link
+to this url, as opposed to typing it manually.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Attempt to visit the url
+Actual Results:  
+Nothing, IE: Phoenix ignored the request.
+
+Expected Results:  
+Displayed the customer 404 error page.",5
+174616,normal,"Images from a blocked site can still be saved to disk. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+
+When you block images from a site, the user cn still save them to disk and
+access them.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Block a site (right click on any image and select ""Block Images from this
+Server"")
+2. Refresh the page -- all images disappear and are replaced with blank placeholders
+3. Right-click on any of these blank placeholders, and select ""Save Link As..."" 
+
+Actual Results:  
+The ""forbidden"" image is downloaded to disk and then freely accessible.
+
+Expected Results:  
+The image should be unavailable for download. Simplest solution would probably
+be that ""Save Link As..."" be disabled.",5
+170571,normal,"Mousewheel does not scroll web page. User-Agent:       Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.2a) Gecko/20020910
+Build Identifier: Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.2b) Gecko/20020923 Phoenix/0.1
+
+The ""mouse wheel"" is a control on the pointing device that lets the user
+scroll a document up and down without having to move the mouse pointer all
+way to the window's scroll bar.
+
+Mouse wheel scrolling works (mostly) in Mozilla 1.2a but not in Phoenix 0.1.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Open any program known to respond to the mousewheel.
+2. Move the mousewheel.
+3. If it does not respond, fix your mouse, and go back to step 1.
+4. Open Phoenix 0.1.
+5. Go to http://slashdot.org (or any other tall page)
+6. Move the mousewheel up and down.
+Actual Results:  
+Page does not scroll.
+
+Expected Results:  
+Page scrolls.",6
+172225,normal,"Proxy: Support for Microsoft Proxy Server?. The proxy support does not work for Microsoft Authenticated Proxy server.
+
+(Just so that this is clear, the Microsoft Proxy server uses the Microsoft 
+authentication method:
+Proxy-Authenticate: Negotiate
+Proxy-Authenticate: NTLM)
+
+Not sure what it takes, but on the Windows platform, that should be possible! :-
+) [and that would help Phoenix enter the enterprise field]",7
+171940,normal,"Unable to display news stories correctly. Although the home CNN web site displays correctly, when a hyperlink to a story
+is selected, the story usually, but not always, displays without word wraps.
+This makes the item unreadable.
+
+I've tried changing fonts, etc. This will sometimes correct the problem, but
+when I return to the site later, the problem is back again.",3
+171147,normal,"Version number is too low.. So, I've been using Phoenix for a couple of days now, and the most glaring issue
+is that of version number. You must have meant 1.0, not 0.1.
+
+Unbelievable browser, actually. I ran home to install it there, too. So pretty
+and fun and fast.
+
+Can't wait to see what 0.2 does.",3
+172451,normal,"accel-shift-l keystroke does nothing, unlike Mozilla. The ""openLocation"" dialog box, which is by default set to accel-shift-l in
+Mozilla, seems to be missing from Phoenix.  While this may be intentional
+(moving focus to the URL bar is nearly equivalent), I depend on this feature for
+interface compatibility with Netscape 4 and MSIE: they both spawn a ""open
+location"" dialog on ctrl-o, and so does my Mozilla with some XUL remapping.  It
+seems the ""openLocation"" function has been re-assigned to mean what
+""focusURLBar"" in Mozilla does, and there is no corresponding choice in the File
+menu to get the dialog like there is in Mozilla.",3
+173946,normal,"Button, not field, has focus in authentication dialog. When I go to log in to a site that requires HTTP authentication, the dialog
+named ""Prompt"" comes up with its focus on the ""OK"" button. In Mozilla, the focus
+is in the username field, which is much more convenient if you don't habitually
+save your passwords.",5
+171945,normal,"Text running off page. When viewing cnn.com the text on linked pages the text runs off the page without
+a scroll bar to view the remaining line. When increase or decrease text sixe is
+selected the formatting is corrected and the text is contained within a viewable
+area.",3
+173314,normal,"Can't open mozilla and phoenix simultaneously. User-Agent:       Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+
+When running phoenix, mozilla can't be opened simultaneously.  Issuing the
+command ""mozilla"" causes another phoenix window to be opened.  I am not sure if
+this is supposed to happen, but I thought it would not be the case.  It does not
+happen if performed the other way, i.e. open mozilla and then open phoenix.
+
+This takes place on a RedHat 7.2 machine, with the mozilla 1.0.0-4 rpm
+installed, and with Phoenix 0.2 symlinked in /usr/local/bin.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Run the command phoenix to open the phoenix browser
+2. Run the command mozilla to attempt to open mozilla.  It will open a phoenix
+browser.
+3. 
+
+Actual Results:  
+Phoenix opened another window as if I had pressed ctrl+n.
+
+Expected Results:  
+Mozilla should have opened rather than phoenix.  I wanted to compare the two
+while running simultaneously.  
+
+This does not happen if mozilla is opened first, followed by phoenix.",4
+174505,normal,"Ctrl-Click on a link doesn't open it in a new window or tab.. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+
+Ctrl-clicking a link on Phoenix 0.3 doesn't open it in a new window or tab. This
+used to work in Phoenix 0.2.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Ctrl-click any link on the current web page.
+2. Nothing happens - it should open a new window or tab and load the clicked URL.
+
+Actual Results:  
+Zilch... nada... nothing.
+
+Expected Results:  
+Open the URL in a new tab or window.",8
+171968,normal,"Keyboard weirdness when editing forms. I'm using Phoenix to edit my Zope website through standard HTML forms
+and after a while I start getting wrong values for the punctuation keys
+(?, < etc.)
+
+I don't think it's a bad keyboard or XP since if I close and restart
+Phoenix it works fine and the problem doesn't appear in other Windows
+apps running at the same time as the confused Phoenix.",7
+172244,normal,"Crash when trying to browse ""back"" after the PDF file failed to be generated. From a web application, I try to access an ASP page that generates a PDF. The 
+ASP set the content-type correctly and Phoenix starts the PDF plug-in. However, 
+the PDF generation failed. As a result, I get the error ""the file does not 
+start with ""%PDF"". (Everything is fine until now! ;-) ).
+
+Once I got the popup message, I click on the ""back"" button to browse back to 
+the previous page => Crash. The ""Netscape Feedback Agent"" kicks off to try to 
+send the error report (but will never be able to do so as we are using a 
+Microsoft Proxy server here....).",17
+171299,trivial,"Created what I think is a nice Phoenix icon.. I used the Mozilla 1.2b icon as a starting point and came up with this
+(http://www.coe.unt.edu/coetech/robert/phoenix7.ico).  I then incorprated it
+into the Phoenix executable for Windows with ResourceHacker
+(www.users.on.net/johnson/resourcehacker). I think it looks very nice both in
+the OS and within the program.  I am sure a more talented artist could clean it
+up a little.  Thought I would pass it on.",4
+174652,normal,"Ctrl+Click doesn't close tab in Linux.... Maybe I'm crazy, but I've noticed that Ctrl+Clicking a tab in Windows will close
+a tab, but won't do anything in Linux.  Every other Ctrl+Click seems to work to
+create the tabs, though (bookmarks, links, etc).",3
+171991,major,"problems with loading sites. If I try to view different sites, phoenix needs a veeeery long time to load the
+website. It does seem to have something to do with the advertising-servers. I
+think Phoenix tries to connect to them but doesnt receive any data (watch the
+statusbar)
+
+some Websites with problems(there are several websites withe the same problem)
+
+http://ftp.mozilla.org/pub/phoenix/nightly/latest-trunk/
+http://www.spiegel.de
+
+btw: great job, I love phoenix :)
+
+cu luke17",7
+174849,normal,"ctrl+Click does not open a new tab. Phoenix 0.3
+
+When you click on a link while pressing the Shift key, Phoenix does not open a
+new tab window (it does nothing). Preferences are configured the right way.",8
+171501,normal,"view image opens new window. When an image is not downloaded with the rest of a web page, if you use right click
+mouse button to view the image, phoenix (also mozilla 1.1) opens a new window
+instead of load the image in the right place.",3
+174537,normal,"Memory consumption increases. Open up phoenix (0.3)
+open windows2000 task manager 
+and click to home button (www.mozilla.org) continuously, observe memory amount
+used by phoenix, it always increases.
+
+Phoenix, Version: 0.3",3
+171848,trivial,"icons. no supplied icon for phoenix, the phoenix logo on about should be put as one of
+the icon images. That logo is already nice to be made into an icon.",3
+171591,critical,"crash on http://www.salon.com. Hello,
+Phoenix crashes when I attempt to access http://www.salon.com .  I'm using
+Phoenix ""Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20020927
+Phoenix/0.2"" This crash does not occur in Mozilla 1.1.  It is repeatable:  it
+happens EVERY time I try to access Salon.com using Phoenix.
+
+Here's something curious, though.  If I save the salon.com frontpage using
+mozilla, and then access this local copy using phoenix, it doesn't crash, and
+displays things properly.  Clicking on links to go to various Salon news stories
+also works from this local copy.  Just entering deep links, like
+http://www.salon.com/news/wire/2002/09/29/uranium/index.html into the address
+bar after a fresh phoenix restart results in a crash. Doing it after having
+accessed a local copy of salon.com doesn't result in a crash.
+
+My apologies if this is a duplicate report, but I haven't been able to find any
+bugs that talk about this crash using bugzilla.
+
+Also, thank you for working on Phoenix - it is already very useful and impressive!",4
+172992,normal,"Page not clear. When this page is loaded in the Phoenix browser, some parts of the page are not
+clear and text appears garbled. The page in certain sections is unreadable.",4
+174826,normal,"Phoenix v.3 doesn't resize persistantly for me. Whenever I launch Phoenix, it launches in a window on the left side of my screen
+that extends from top to bottom.  I can move it, resize it, whatever, but when I
+close it and relaunch it, it launches on the left side from top to bottom.",8
+174291,normal,"Keyboard errors. I'm using Phoenix release Gecko/20021012 0.3 and sometimes I find two problems
+involving the keyboard.
+1) The keyboard doesn't work to scroll the page up or down. It only happens
+sometimes.
+2) There are times that I can't write on text boxes or the adress bar. I click
+with the mouse on them but nothing happens.
+I saw that if I use another program (any program) and write something on it and
+then return to Phoenix, those 2 problems desapear.
+I have Mozilla 1.1a and that doesn't happen.",8
+173687,major,"JavaScript in Phoenix 0.2 different from Mozilla 1.2a. I have over the last couple of days experienced many differences in Phoenix 0.2
+and Mozilla 1.2a, while coding JavaScript and using DOM..
+
+My last incident happened when putting the following in a html page:
+	<div id=""xmlDeposit01"">
+		<guiconfig id=""myFirstTypes"">
+			<type-defs>
+			<type name=""str"" />
+			<type name=""int"" />
+			<type name=""date"" />
+			</type-defs>
+			<sub-types/>
+		</guiconfig>
+	</div>
+
+and trying to access it from JavaScript using:
+
+alert(document.getElementById('xmlDeposit01').childNodes.length);
+
+Phoenix 0.2 returns 1, and Mozilla 1.2a returns 2.
+
+I have not had success with accessing the children of the DIV tag in Phoenix,
+but have no trouble in Mozilla 1.2a. - I hope this helps more than it confuses,
+otherwise please contact me and I will provide more help.
+
+Regards Fini A. Alring",9
+172694,major,"Popup window are off the screen!. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+
+When I click on a link that causes a popup window to appear, that window is off
+my screen. I can only get it back by right-clicking on the window in the task
+bar, selecting Move and using the arrow keys to get it back on the screen. With
+small popups (see the  W Georgia St Traffic Camera popup) it is completely off
+my screen. With others I only see the bottom righ of the window and I still
+can't get at the title bar!
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Go to above web page
+2. Click on the  W Georgia St Traffic Camera link
+3.
+
+Actual Results:  
+Popup window off screen
+
+Expected Results:  
+Popup window is on the screen somewhere (centered?).",5
+170958,normal,"No wordwrap on news article pages. Pages look fine on CNN's welcome page, but when drilling down to news articles 
+the formatting gets lost - no graphic elements and no wordwraps. This appears 
+to be a Phoenix problem, not a Mozilla problem. Checked same page with Mozilla 
+1.0.1, and there were no problems. All the graphic elements and wordwaps were 
+fine.",6
+175042,major,"Phoenix installation hosed after crash. I was about to add an URL to a Bookmark folder in my Personal Toolbar Folder by
+drag and drop.  I stopped and decided that I wanted to rearrange my bookmarks
+first.  I chose Manage Bookmarks... from the menus and Phoenix hung (I switched
+to another app and tried to switch back to Phoenix and the UI would not come
+up).  I right-clicked on Phoenix in the taskbar and selected Close.  The 'End
+Now' dialog appeared letting me know Phoenix was not responding.  I clicked 'End
+Now'.  I tried to relaunch Phoenix, but nothing happened.  I waited a while and
+checked Task Manager.  Phoenix's memory was at 150MB and climbing.  I clicked
+End Process.  I tried several more time to start Phoenix, logged off and tried,
+restarted and tried.  Same thing.",5
+175081,normal,"Password Manager Confirmation Box Has Two Messages. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+
+The password manager ""confirm"" box sometimes displays the wrong buttons. 
+Instead of ""yes"" ""never for this site"" and ""no"", it will display ""ok"", a blank
+button, and ""cancel"".  In addition, the second message box is too small to fit
+everything so the bottom of these buttons (the ok, blank, and cancel) are cut
+off.  I repeat, this bug is erratic so I apologize that I can't be specific.  I
+will try to upload some screenshots somehow.
+
+Reproducible: Sometimes
+
+Steps to Reproduce:
+1.  Start Phoenix
+2.  Go to a page and enter a password that will inite the ""confirm"" box
+
+Actual Results:  
+Sometimes a broken version appears.
+
+Expected Results:  
+The normal version should only appear.",9
+173087,normal,"External Mail Program Support. Clicking on a mailto: link should start a default MUA or an MUA specified in
+preferences.",3
+173226,normal,"Favicon changing when a page contains an <iframe> with refresh. The favicon displayed in the tabbar (and only there, not the one displayed in
+the addressbar or in the bookmarks) can be changed by an external site through
+an iframe.
+
+If Site1 (with its own favicon) contains an <iframe> to a page on Site2 (which
+also has its own favicon), and if this page has a refresh (with something like
+<meta http-equiv=Refresh Content=""20; URL=http://example.com/"">), then the
+favicon of the *tab* is replaced by the one of Site2 when the iframe refreshes.
+
+See URL for an example.
+
+This is annoying on websites that use iframes to display ads.",5
+170630,normal,"Scroll bar becomes blank. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20020924 Phoenix/0.1
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20020924 Phoenix/0.1
+
+When you scroll a long page the scroll bar glyphs (up/down arrow and the ""thumb""
+texture) slide off to the right, leaving the scroll bar blank.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Go to a long web page.
+2. Scroll to the bottom.
+
+Actual Results:  
+As you scroll, the scroll bar glyphs slide off to the right while the scroll bar
+itself stays where it belongs.
+
+Expected Results:  
+The scroll bar continues looking like a scroll bar.
+
+Since this hasn't been reported yet, maybe its specific to my configuration. IBM
+Thinkpad, 1024 × 768 × 32-bit, ATI Mobility Radeon 7500, Windows XP SP1.
+
+See pix to follow.",5
+172317,normal,"Save Page As shuld offer Page Caption as file name. I have Latest Night build and on Phoenix 0.2 is the same thing.
+For example on page http://www.the-underdogs.org/game.php?id=3848
+save page as offers game.php.html but IMHO it should be ""Sega Worldwide Soccer""
+even withouth .html because .html should be appended autamaticly if is web page
+is selected.
+
+Ivan Brkanac",3
+175027,normal,"Phoenix puts icon text near icons not under icons. See the attached screenshot Phoenix used to put icon text under the icon but in
+Gecko/20021012 build it puts near icon.",6
+175343,normal,"Intermittent problem with CTRL+click and middle mouse button. I have noticed problems in the nightly builds starting at 2002-10-14-08-trunk
+where when you used ctrl+click (or the middle mouse button) to open a link in a
+new window, the link would turn red, but nothing would happen. (no window would
+open)
+
+It seemed to happen every time on the 2002-10-14-08-trunk and
+2002-10-14-16-trunk builds, and seemed to go away on the 2002-10-16-08-trunk build.
+
+On one of my machines running the 10/16 build, after using it for a day, the
+problem came back.
+
+Both the machines I am using are WindowsXP.",6
+170309,normal,"Nightly for 22 Sept displays page details above window. User-Agent:       Mozilla/5.0 (Windows; U; Win 9x 4.90; en-US; rv:1.2b) Gecko/20020921 Phoenix/0.1
+Build Identifier: Mozilla/5.0 (Windows; U; Win 9x 4.90; en-US; rv:1.2b) Gecko/20020921 Phoenix/0.1
+
+The Sept 22 Win nightly displays the page's details above the window.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. download nightly
+2. unzip it
+3. run Phoenix
+
+Actual Results:  
+Page details displyed above page, also the font etc is displayed differently to
+usual
+
+Expected Results:  
+displayed just the page
+
+I suppose it will be right tomorrow",6
+170543,blocker,"pheonix. This is a very interesting post from slashdot that you should consider:
+
+ Stupid to change the name (Score:0)
+by Anonymous Coward on Tuesday September 24, @01:38PM (#4320540) Don't these
+guys understand the importance of brand rocognition? Releasing a browser with a
+totally unrelated name really just muddies the waters. It should just be called
+Mozilla Lite or something so that if people discover and like it then it will
+expand the mozilla mindshare, not fragment it.
+
+Get a clue moz people! [ Reply to This | Parent ]",3
+170978,normal,"unexplained crash(s). the browser is open with 3 to 4 tabs open.  the 3 rightmost tabs have been
+opened with a single bookmark.  I use this same configuration in mozilla with no
+crashes.
+  
+mozbrowser.exe    ""Exception: access violation(0xc0000005), address: 0xffff036d
+
+from browser about 
+""Mozilla/5.0 (Windows; U; WinNT4.0; en-US;
+rv:1.2b) Gecko/20020924 Pheonix/0.1   ""
+
+I'll attach a Dr Watson log with two crashes - ine from yesterday afternoon and
+the latest from this morning.  I have another from yesterday saved if you want it.
+
+rightmost URLs:
+Yahoo mail ( something like: 
+http://us.f204.mail.yahoo.com/ym/ShowFolder?Norder=up&Search=&YY=88540&inc=50&order=down&sort=date&pos=0&view=&head=&box=langalist)
+http://my.yahoo.com/p/d.html
+my webmail: https://webmail.powweb.com/",11
+173307,normal,"flash games display problem (pheonix specific). We noticed a problem today where some of the java games in neoppets do not
+display correctly. They seem to be playable, but the placement of objects are
+off. I originally though that this was a problem with either the java or
+mozilla's rendering engine, but when we tried it again using Mozilla 1.0.1, the
+problem was not there. 
+
+The problem also does not occure in the Galeon on Linux. I'm not sure exactly
+where the fluke is, but it is only reproducable in Pheonix.
+
+The Pheonix version is 0.2
+I don't know how to get to the specific games in neopets where the problem is
+occuring (and i know you need a user account), it is installed on a users
+computer who has been willing to attempt an Open Source replacement to several
+programs.",8
+173607,normal,"fails to start, no message (on linux). Hi,
+
+I've installed phoenix 0.2 in /opt like I did on another machine (where it
+worked) and it won't start. No warning. A window just appears for 1 sec before
+disappearing.
+
+I installed gdb and edited run_mozilla.sh and set moz_debug to 1 on line 278.
+started phoenix, typed 'run' inside gdb (first time I use this) and here's the
+output :
+
+(gdb) run
+Starting program: /opt/phoenix/phoenix-bin 
+(no debugging symbols found)...(no debugging symbols found)...
+(no debugging symbols found)...(no debugging symbols found)...
+(no debugging symbols found)...(no debugging symbols found)...
+(no debugging symbols found)...[New Thread 1024 (LWP 22938)]
+(no debugging symbols found)...
+(no debugging symbols found)...(no debugging symbols found)...
+(no debugging symbols found)...(no debugging symbols found)...
+
+(no debugging symbols found)...(no debugging symbols found)...[New Thread 2049
+(LWP 22940)]
+[New Thread 1026 (LWP 22941)]
+[New Thread 2051 (LWP 22942)]
+[New Thread 3076 (LWP 22943)]
+[New Thread 4101 (LWP 22944)]
+
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 1024 (LWP 22938)]
+0x40c92f7e in NSGetModule () from /opt/phoenix/components/libwidget_gtk.so
+(gdb) 
+(gdb) step
+Single stepping until exit from function NSGetModule, 
+which has no line number information.
+Cannot find user-level thread for LWP 22941: generic error
+(gdb)",8
+167104,critical,"Back/Forward buttons and context options always disabled.. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.1b) Gecko/20020904
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.1b) Gecko/20020904
+
+I can't go back in the browser even after clicking through many pages - the back
+button is always greyed out.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Surf a bit
+2. Want to go back
+3.
+
+Actual Results:  
+Can't go back
+
+Expected Results:  
+Back button should be enabled after the first link is clicked.",4
+174789,normal,"Mouse wheel text size change makes scrollbars disappear. As in IE, holding down the AltGr key and using the mouse wheel changes the text
+size on the page. However, when doing this on Phoenix, the scrollbar disappears!
+To reproduce, use the wheel + AltGr combination until the text is tiny and the
+scrollbar disappears from the page. Now use the wheel + AltGr combination to
+increase the text size, but the scrollbars dont appear again! A blank box
+appears where the scrollbar should be (both vertical and horizontal bars).",3
+172885,critical,"the browser crashes if you open the link (no java plugin). User-Agent:       Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+
+the browser disappears
+
+Reproducible: Always
+
+Steps to Reproduce:
+1.open the link
+2.press enter
+3.
+
+Actual Results:  
+the browser crashed -- no sign for a running browser on the desktop (kde 3.01) 
+
+Expected Results:  
+display the site",5
+173158,blocker,"MNG format animations embeded into page crash phoenix. Any MNG images embeded in a page that are animated will crash phoenix upon 
+changing the first frame of animation to the second.  At first, the image will 
+display, then it crashes when changing to whatever it is animating.",4
+171589,normal,"Ctrl-click should open bookmark in a new tab. Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20020923 Phoenix/0.1
+
+Since ctrl-click on a url opens the url in a new tab, ctrl-click on a bookmark
+should open bookmark in a new tab as well. Also, context menu for bookmarks will
+be useful, but that is a separate issue.",4
+175361,normal,"pasting a URL into the content window doesn't work. The ability to paste a URL into the rendering area of the window (as a shortcut
+for open web location) is absent in Phoenix 0.3.",3
+172246,normal,"Window locked after using About Phoenix dialog. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.1) Gecko/20020826
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.1) Gecko/20020826
+
+After opening the About Phoenix dialog, and clicking on ""Copyright and
+contributor information"", Phoenix opens a window that sits above the existing,
+but isn't a ""new"" window. Minimising this window shows the old one with the
+About Phoenix box still showing. Until the top window is closed, the About
+Phoenix box is locked.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Open a new window.
+2. Click on About Phoenix, then ""Copyright and contributor information"".
+3. Minimise the topmost window.
+
+Actual Results:  
+The original window is locked and can't be accessed until the topmost window is
+closed.
+
+Expected Results:  
+The About Phoenix box should close and activate a ""proper"" new window with the
+copyright & contrib info.",4
+173019,normal,javascript onLoad. The javascript onLoad handle doesnt work!!,6
+174076,normal,"Dragging URLs over toolbars incorrectly handled. If you drag a URL, or any text I presume, over a toolbar the tab bar stops
+intercepting URLs (to open a new tab).  This happens to me all too often when I
+forget I have only one tab open and the tab bar is hidden.  Restarting phoenix
+clears up the problem.
+
+Steps to reproduce this problem:
+
+1. Run phoenix with the ""Hide the tab bar when only one tab is open"" option set.
+2. With only one tab open, block hilight a URL and drag it over the personal
+bookmarks toolbar and then back over tab window before mouseup.
+3. Open a new tab (to display tab bar).
+4. Go back to first tab, select the URL and drag it to the tab bar.
+
+Following these steps, dragging the URL to the tab bar does not open a new tab.
+A secondary side-effect is that a horizontal bar is left at the right end of the
+personal bookmarks toolbar under certain conditions.",7
+170521,critical,"Incorrectly renders various web pages. Perhaps it's something dealing with tables?  CNN.com's articles are all
+incorrectly rendered, as are a number of other sites.  (a site I'm working on
+with a few tables, which renders correctly under IE and Mozilla is messed up
+under phoenix.)",4
+172974,normal,"malfunctions in autodetect character coding. hi i'm from korea and many pages i visit have a euc-kr character code.
+but without a <meta> tag specifying the code type, phoenix will show the
+characters in so called ""worm characters"" because it interprets the page in
+western-latin1.
+i see that i cannot turn on the auto detecting feature. is it my problem or is
+it not yet developed?
+mine's a 'santa-cruz' version of phoenix.
+
+anyway i think this project rocks and i'm spreading it over my buds. good luck
+and many thanks.",3
+171502,normal,"scripts opens windows instead of tabs. For example, if you tray to open the link to the mozilla.org in the following web: 
+
+http://www.softonic.com/informacion_extendida.phtml?n_id=11707&plat=1
+
+phoenix (also mozilla 1.1) opens a new window instead of a new tab. As it is
+impossible to choose an option in preferences, why not indicate the browser to
+open allways a new tab (I think this is the purpose of using tabs, not to have a
+lot of windows open when diving internet).",4
+174605,normal,"middle-click for new tab not working!. User-Agent:       Mozilla/5.0 (compatible; X11)
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20021015 Phoenix/0.3
+
+
+After downloading some new builds of Phoenix (Gecko/20021014 and Gecko/20021014
+(Phoenix/0.3)) and copying it to an empty directory, all of a sudden
+middle-clicking a link does not open a new tab anymore. I've checked this in the
+preferences, too. Also tha mouse is still working ;) This gave no problem with
+the 0.2 builds.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1.
+2.
+3.",5
+171707,critical,"Phoenix Quits When Attempting to Access MyCheckFree.Com. Attempts to access URL https://mycheckfree.com/br/wps?sp=WEBST&rq=bfbl result in
+Phoenix 0.1 exiting without any notice/error.",6
+175209,normal,"Phoenix stops responding when clicking the back button. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+
+After clicking on a link and then clicking the back button, phoenix halts.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Go to www.opencube.com
+2. Click on the EA Sports link in the center of the page
+3. Let the EA Sports page load
+4. Then click the back button.
+
+Actual Results:  
+The title bar changes, then the whole browser stops responding
+
+Expected Results:  
+Showed the open cube site again
+
+This bug only happens when I use phoenix. Mozilla 1.1 does not show this
+problem. This could be the result of some changes the Gecko team has made in the
+nightlies phoenix uses, but I can't really verify that since I don't have one
+installed.",12
+174420,normal,"crash when using Find in This Page on framed pages. User-Agent:       Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+
+Using Ctrl-F to invoke the ""Find in This Page"" dialog when navigating framed
+pages can cause a crash.
+
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Go to http://www.pricewatch.com/
+2. Edit -> Find in This Page... ( or Ctrl-F )-> ""dsjzhfdsark"" -> Find Next
+3. (""The text you entered was not found."") OK
+4. Cancel
+5. Click any category listing (lowest frame)
+6. Ctrl-F
+7. ""Find in This Page"" dialog appears, but... *Crash!*
+
+Actual Results:  
+application crash
+
+
+(Apologies in advance if this bug should be filed against the underlying Mozilla
+project and not Phoenix. I only use Phoenix, and I couldn't find any similar bug
+listed in Bugzilla under Mozilla or Phoenix.)
+
+PHOENIX caused an invalid page fault in
+module TOOLKITCOMPS.DLL at 016f:6077b433.
+Registers:
+EAX=00000000 CS=016f EIP=6077b433 EFLGS=00010206
+EBX=00000000 SS=0177 ESP=0063fb8c EBP=0063fc58
+ECX=6077db48 DS=0177 ESI=017cd2f4 FS=13b7
+EDX=0063fbb4 ES=0177 EDI=0063fbb4 GS=0000
+Bytes at CS:EIP:
+8b 08 ff 91 24 01 00 00 8b 07 8b cf ff 50 14 85 
+Stack dump:
+00000000 0063fbb4 60c68607 01737fb0 60771e56 017cd2f4 0063fbb4 030c3d90 01737fb8
+01958830 60c6b7b8 0063fbc4 00000000 8000003f 00000000 11978bcc",10
+170967,minor,"right mouse menu has open window in first position insetad of open new tab. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20020923 Phoenix/0.1
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20020923 Phoenix/0.1
+
+In Phoenix, when the mouse coursor in on a link, and you rightclik, the menu
+pops up. The first choice is to open the link in a new window, the second is to
+open the  page in a new tab. It should be the other way arround like in netscape.
+
+
+Reproducible: Always
+
+Steps to Reproduce:
+1.
+2.
+3.
+
+
+
+Expected Results:  
+It should be the other way arround like in netscape.
+The first choice should be to open the link in a new tab, the second should be
+to open the  page in a new window.",3
+170362,normal,"Ctrl-W does not close the current tab. This is the default behavior in both mozilla and galeon, shouldn't it work in
+phoenix too?",4
+171938,major,"The search for your bug results box is black. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20020929 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20020930 Phoenix/0.2
+
+In the page
+http://bugzilla.mozilla.org/enter_bug.cgi?format=guided&product=Phoenix the
+Search for the bug results box is black.  
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Go to http://bugzilla.mozilla.org/enter_bug.cgi?format=guided&product=Phoenix
+2.See the big black box
+3.
+
+Actual Results:  
+I see a big black box where the serch results should be.
+
+Expected Results:  
+The box should be white as in previous builds.
+
+I have tested this in nightly build Mozilla/5.0 (Windows; U; Windows NT 5.1;
+en-US; rv:1.2b) Gecko/20020929 Phoenix/0.2 and the results field is correct
+(white).  Maybe a differece between the builds.  Seems that the javascript is
+being read wrong.",10
+172313,normal,"Can not use Javascript to add new side bar. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021002 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021002 Phoenix/0.2
+
+Using the example at http://javascript.internet.com/navigation/sidebar.html to
+add a side bar to Mozilla/Phoenix gave the following errors on the Javascript
+console.
+
+   Error: [Exception... ""Component returned failure code: 0x80004003
+(NS_ERROR_INVALID_POINTER) [nsIRDFContainer.Init]""  nsresult: ""0x80004003
+(NS_ERROR_INVALID_POINTER)""  location: ""JS frame ::
+file:///C:/PROGRA~1/PHOENIX/components/nsSidebar.js :: anonymous :: line 138"" 
+data: no]
+   Source File: file:///C:/PROGRA~1/PHOENIX/components/nsSidebar.js
+   Line: 138
+
+
+   Error: uncaught exception: [Exception... ""Component returned failure code:
+0x80004003  (NS_ERROR_INVALID_POINTER) [nsIRDFContainer.Init]""  nsresult:
+""0x80004003 (NS_ERROR_INVALID_POINTER)""  location: ""JS frame ::
+file:///C:/PROGRA~1/PHOENIX/components/nsSidebar.js :: anonymous :: line 138"" 
+data: no]
+
+If I click again on the link text 'Add The JavaScript Source to Netscape 6
+sidebar' I get the message that its already been added - but the UI does not
+give an option in the View -> Side bar submenu.
+
+
+Reproducible: Always
+
+Steps to Reproduce:",4
+174540,normal,"Browser fails to display the correct character set: page unreadable. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+
+The page at http://www.amarujala.com/today/default.asp (Indian newspaper) is
+unreadable (question marks instead of expected text) with Phoenix 0.3.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Access the page at http://www.amarujala.com/today/default.asp
+2. From main menu, select View > Character coding and ""play"" with all the
+different options: the page is never displayed correctly.
+Actual Results:  
+All text is replaced with question marks. In some case (selecting Gujarati
+character sets) it is displayed with other characters such as ""çàæßâðÙæ Âý×é¹
+ÕæÜ Ææ·Úð Ùð ·ãæ ãñ ç"", but never with the right font.
+
+Expected Results:  
+Page should be displayed correctly. FYI, with Microsoft IE 6.0 SP1, on the same
+platform, the page appears just fine with the right characters, so it's not a
+problem of font avalability on the PC.",10
+171218,normal,"256 color mode does strange things. When using 256 color mode, the background of my icon (transparent) is
+shown as purple.  Also some other backgrounds show thru as purple...
+There is no problem when viewed at 16 bit colors... i know the 
+workaround is VIEW AT 16 BIT   but thought you might like to
+know that Phoenix reacts badly to 16 bit.  KMeleon did too !",3
+173978,normal,"UI pref for changing behavior of browser windows reusage. When using SecureCRT, Outlook or other windows applications which launch URL's,
+it always uses an existing browser window instead of creating a new one.
+
+It would be nice to be able to have it spawn a new window -- similar to the IE
+Advanced Setting ""Reuse windows for launching shortcuts"" set to ""disabled"".",7
+173511,normal,"http://www.adovercollege.com/ crashes phoenix always. User-Agent:       Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+
+I don't know what's causing, but phoenix goes down instantly after going to this
+address. The webpage doesn't even get a chance to render
+
+Reproducible: Always
+
+Steps to Reproduce:
+1.
+2.
+3.
+
+
+
+Expected Results:  
+displayed the webpage",9
+172931,major,"Login for forum unsuccessful.. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.0; en-US; rv:1.2b) Gecko/20021001 Phoenix/0.2
+
+PHP driven forum system reports login successful, yet when user attempts to
+reply to post or post new message, page tells user they are not logged in.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1.Log in(create new account, it's free)
+2.Attempt to post new message
+3.Page alerts user they are not logged in, despite side bar saying they are.
+
+Actual Results:  
+Page reported me not logged in, despite side bar saying I was
+
+Expected Results:  
+Logged me in, fully able to post under login name",6
+171339,trivial,"use more userfriendly icons. User-Agent:       Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20020927 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20020927 Phoenix/0.2
+
+The Current icons used in phoenix are good looking but far from optimal. 
+
+http://www20.brinkster.com/rochette/moztoolbar/ has a good set of basic icons
+which could be considered.
+
+Reproducible: Always
+
+Steps to Reproduce:",3
+174786,normal,"Need button2 paste of url feature. I'm not sure I can survive without mozilla's feature (on linux anyway)
+that uses a URL in the paste buffer when you click button 2.  While
+you're at it, please strip it of not-legal characters so that I can
+be sloppy about what I cut.  Specifically, new-lines and perhaps
+even spaces before and after newlines are most likely the result of
+cutting from a poorly formatted text and are painful to fix manually.",3
+170910,normal,"Open new window (script) on onload doesn't work. On www.teldok.org/index.html I have used a small JavaScript script forever. THis
+script opens another window, of specfied height and width and at a certain
+location, as index.html loads (""onload""). Seconds later, index.html should
+refresh and index2.html loads. This diesn't work with Phoenix.
+
+PG Holmlov",3
+173809,normal,"Popup off viewable area. Some popups, not all, appear too far left and too high. The title bar is off the
+screen. The only way you can close them is to hit Alt-F4.
+In the sample URL above, Test Example 6 and 7 pop up okay, but Test Example 8
+barely gives me the bottom right hand corner. My screen resolution is 1024 by
+768. Using Phoenix 0.2.",11
+173907,normal,"Error loading some kind of PNG images. i've tried to open the image at this link:
+http://beos.overhagen.de/test3.png
+but Phoenix tell it has errors. Using Mozilla or IE it works.",4
+172724,normal,"Java error when starting Phoenix. User-Agent:       Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)
+Build Identifier: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)
+
+When opening a new session of Phoenix a pop up error dialog appears.
+The error message is:
+""Java Plug-in for Netscape Navigator should not be used in Microsoft Internet
+Explorer. Please use the Java Plug-in for Microsoft Internet Explorer instead.""
+
+Starting Mozilla 1.1 does not reproduce the error message.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1. Open Phoenix
+
+Actual Results:  
+See 'Details'.
+
+Expected Results:  
+Browser should have opened without error message.",10
+174876,major,"dialogs too big. Whenever I try to edit the prefrences, do a find, or anything else involving a
+dialog popping up, for some reason it takes up the whole screen, no matter what
+my resolution is and there are no buttons on the dialog box. Also Help->About
+dialog is completely empty. Using Phoenix 0.3",7
+170582,normal,"favicon.ico colors render improperly in tabs and URL bar. Phoenix Milestone .1
+RH Linux Null (7.3.94) x86
+ATI Technologies Inc Rage Mobility P/M AGP 2x (rev 64)
+
+http://www.google.com/ (Google 'G' renders as red, not blue)
+http://www.yahoo.com/ (Yahoo 'Y' renders as blue, not red)
+http://www.sitemason.com/ ('SM' renders as blue+squa, not yellow+orange)",5
+171199,normal,"Trying to submit bug 171196 generated error.. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20020926 Phoenix/0.2
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20020926 Phoenix/0.2
+
+Browser loaded the above url when I pressed submit. pressing back and trying
+again did not reproduce. Any ideas?
+
+Reproducible: Didn't try
+
+Steps to Reproduce:
+1.
+2.
+3.",4
+172952,major,"Phoenix crashes when opening preferences menu if download dialog is open. When I was downloading a nightly build of Phoenix and tried to open the
+preferences dialog in my current build (Milestone 0.2), the browser stopped
+responding.",6
+174864,normal,"doesn't support intellimouse(optical) side buttons. just like the summary says, phoenix 0.3 doesn't support (or at least isn't
+responding to or recognizing) the left and right side buttons on my MSoptical
+intellimouse.  maybe it's a problem with the mouse instead (doesn't allow
+specification of which/any browsers button assignment will be valid), but msIE
+and netscape both respond.  it's a minor problem with an otherwise great browser.
+
+thanks and nice work.
+
+brendan hinkle",5
+171872,normal,"Phoenix gives ""connection failure,"" Mozilla displays page OK. When you go to this URL and click ""Register for tutorial,"" Phoenix gives:
+
+The connection was refused when attempting to contact www6.software.ibm.com.
+
+connectionFailure long description goes here.
+
+Try again
+
+Search for this address
+
+I tried to do the same in Mozilla (1.1b), which correctly displays the
+DeveloperWorks register/login page.",8
+175017,normal,"Don't dipslay the page correctly. User-Agent:       Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021015 Phoenix/0.3
+Build Identifier: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021015 Phoenix/0.3
+
+When you opne the website htpp://athena.ibilce.unesp.br the left frame isn't
+displayed correctly. It shows a lot of mess.
+If using Netscape or Konqueror, it displays correctly.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1.
+2.
+3.
+
+Actual Results:  
+Display a mess on the left frame.
+
+Expected Results:  
+Display the left frame correctly.",4
+174033,critical,"Regular suffering the internet causes a crash to occur in ntdll.dll. User-Agent:       Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20021011 Phoenix/0.3
+Build Identifier: Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.2b) Gecko/20021011 Phoenix/0.3
+
+Here are the details provided by Windows XP event viewer:
+
+Event Type:	Error
+Event Source:	Application Error
+Event Category:	None
+Event ID:	1000
+Date:		10/11/2002
+Time:		4:48:42 p.m.
+User:		N/A
+Computer:	
+Description:
+Faulting application phoenix.exe, version 1.2.0.0, faulting module ntdll.dll,
+version 5.1.2600.1106, fault address 0x000245cc.
+
+For more information, see Help and Support Center at
+http://go.microsoft.com/fwlink/events.asp.
+Data:
+0000: 41 70 70 6c 69 63 61 74   Applicat
+0008: 69 6f 6e 20 46 61 69 6c   ion Fail
+0010: 75 72 65 20 20 70 68 6f   ure  pho
+0018: 65 6e 69 78 2e 65 78 65   enix.exe
+0020: 20 31 2e 32 2e 30 2e 30    1.2.0.0
+0028: 20 69 6e 20 6e 74 64 6c    in ntdl
+0030: 6c 2e 64 6c 6c 20 35 2e   l.dll 5.
+0038: 31 2e 32 36 30 30 2e 31   1.2600.1
+0040: 31 30 36 20 61 74 20 6f   106 at o
+0048: 66 66 73 65 74 20 30 30   ffset 00
+0050: 30 32 34 35 63 63 0d 0a   0245cc..
+
+
+
+Reproducible: Didn't try
+
+Steps to Reproduce:
+1.
+2.
+3.",4
+175256,normal,"block plugins like images. Phoenix' image blocking is great.  But the same for plugins would be especially
+nice, as many sites now use flash animations for advertising.  An example is
+www.bigcharts.com.  If only I could click on one of those annoying flashy things
+and zap it the same way as images ...",3
+175021,normal,"Print preview: no zoom function. User-Agent:       Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+Build Identifier: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.2b) Gecko/20021014 Phoenix/0.3
+
+There is no zoom function by the print preview, like in the windows version.
+
+Reproducible: Always
+
+Steps to Reproduce:
+1.
+2.
+3.
+
+
+
+Expected Results:  
+Have a zoom function in the print preview",3
+173651,normal,"appl. crash if I go to the above link. User-Agent:       Mozilla/4.0 (compatible; MSIE 5.5; Windows 95; T312461)
+Build Identifier: Mozilla/5.0 (Windows; U; Win95; en-US; rv:1.2b) Gecko/20021008 Phoenix/0.3
+
+I try to go from www.unicode.org and then jump to ""what is unicode"", it crash. 
+The appl also crash if I go to the problem link directly.
+
+
+Reproducible: Always
+
+Steps to Reproduce:
+1.launch the browser
+2.goto the problem link
+
+Actual Results:  
+The browser appl. crash
+
+Expected Results:  
+I had do this in Mozilla before (0.9x - 1.1 whatever trunk) and no problem was 
+found.
+
+crash info is listed as follows:
+
+PHOENIX caused a general protection fault
+in module GDI.EXE at 0025:000019e0.
+Registers:
+EAX=000003e3 CS=05af EIP=000019e0 EFLGS=00000246
+EBX=00000006 SS=44af ESP=0000aa2a EBP=0000aa30
+ECX=048f0000 DS=0657 ESI=0000aa72 FS=3aee
+EDX=0002468e ES=468e EDI=00000200 GS=184e
+Bytes at CS:EIP:
+f2 67 af 75 39 b8 ff 00 2b c1 eb 4a 66 8b df 66 
+Stack dump:
+0000aa74 aa50015a 03e3199e 00000000 0000468e 000244af 3aee2166 0657f3e4 
+00000000 aaaa468e 05af12ee 00100001 44afaa70 00000002 21663aee 0000184e",13
